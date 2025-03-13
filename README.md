@@ -113,15 +113,104 @@ This returns unique department names.
 
 ---
 
+## 📌 Lesson 4: Aggregations & Grouping
+
+### 1️⃣ Aggregate Functions
+Aggregate functions perform calculations on a group of rows and return a single value.
+
+| Function | Description |
+|----------|-------------|
+| COUNT()  | Counts the number of rows |
+| SUM()    | Adds up values in a column |
+| AVG()    | Calculates the average value |
+| MAX()    | Finds the highest value |
+| MIN()    | Finds the lowest value |
+
+🔹 **Examples:**
+```sql
+SELECT COUNT(*) FROM employees;  -- Total number of employees  
+SELECT AVG(salary) FROM employees;  -- Average salary  
+SELECT MAX(salary) FROM employees;  -- Highest salary  
+SELECT MIN(salary) FROM employees;  -- Lowest salary  
+```
+
+### 2️⃣ Grouping Data Using GROUP BY
+Used to group rows that have the same values.
+```sql
+SELECT department, COUNT(*) FROM employees GROUP BY department;
+```
+This returns the number of employees in each department.
+
+### 🔹 Using HAVING (Filtering Grouped Data)
+The `HAVING` clause filters groups, similar to `WHERE` but used after `GROUP BY`.
+```sql
+SELECT department, AVG(salary) 
+FROM employees 
+GROUP BY department 
+HAVING AVG(salary) > 50000;
+```
+This returns only departments where the average salary is greater than 50,000.
+
+---
+
+## 📌 Understanding GROUP BY and HAVING
+
+### 1️⃣ What is GROUP BY?
+- `GROUP BY` groups rows that have the same values in a column.
+- It is always used with aggregate functions (`COUNT()`, `SUM()`, `AVG()`, etc.).
+- It collapses multiple rows into a single row per group.
+
+🔹 **Example:** Count the number of employees in each department:
+```sql
+SELECT department, COUNT(*) AS employee_count
+FROM employees
+GROUP BY department;
+```
+
+### 2️⃣ What is HAVING?
+- `HAVING` is used to filter grouped data (i.e., after `GROUP BY` is applied).
+- It works like `WHERE`, but `WHERE` cannot be used with aggregate functions.
+
+🔹 **Example:** Find only departments with more than 1 employee:
+```sql
+SELECT department, COUNT(*) AS employee_count
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 1;
+```
+
+### 📌 Difference Between HAVING and WHERE
+
+| Feature      | WHERE  | HAVING  |
+|-------------|--------|---------|
+| Used with   | Individual rows | Groups (after aggregation) |
+| Can filter on | Any column | Aggregate functions |
+| Works before/after GROUP BY | Before | After |
+
+🔹 **Example 1: Using WHERE (Before Aggregation)**
+```sql
+SELECT * FROM employees WHERE salary > 50000;
+```
+✅ This filters rows first, before grouping.
+
+🔹 **Example 2: Using HAVING (After Aggregation)**
+```sql
+SELECT department, AVG(salary) 
+FROM employees 
+GROUP BY department 
+HAVING AVG(salary) > 50000;
+```
+✅ This first groups departments, calculates average salary, then filters the results.
+
+---
+
 ## 🎯 Hands-on Exercise
 ✅ **Task:**
-1. Retrieve all students from `students` whose marks are greater than 80.
-2. Sort students by age in descending order.
-3. Find all unique classes from the `students` table.
+1. Find the total salary paid in each department.
+2. Retrieve only those departments where the total salary is greater than 100,000.
+3. Find the number of students in each class from the `students` table.
+4. Retrieve only those classes where more than 3 students are enrolled.
 
-### 📝 Solution
-```sql
-SELECT * FROM students WHERE marks > 80;
-SELECT * FROM students ORDER BY age DESC;
-SELECT DISTINCT class FROM students;
-```
+---
+
+🚀 **Happy Learning!**
