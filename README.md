@@ -1,3 +1,5 @@
+# SQL & Databases - Beginner Guide
+
 ## 📌 Lesson 1: Introduction to SQL & Databases
 
 ### 1️⃣ What is SQL?
@@ -71,31 +73,55 @@ SELECT * FROM employees;
 SELECT * FROM employees WHERE department = 'HR';
 ```
 
+---
+
+## 📌 Lesson 3: Filtering & Sorting Data
+
+### 1️⃣ Selecting Specific Columns
+Instead of `SELECT *`, you can choose specific columns:
+```sql
+SELECT name, department FROM employees;
+```
+
+### 2️⃣ Filtering Data Using WHERE Clause
+The `WHERE` clause helps in applying conditions:
+```sql
+SELECT * FROM employees WHERE salary > 50000;
+```
+
+🔹 Operators you can use in WHERE:
+- `=` (Equal to)
+- `!=` or `<>` (Not equal to)
+- `>` (Greater than), `<` (Less than)
+- `>=` (Greater than or equal to), `<=` (Less than or equal to)
+- `BETWEEN` (Range)
+- `LIKE` (Pattern matching)
+- `IN` (Matches multiple values)
+
+### 3️⃣ Sorting Data Using ORDER BY
+Sort results ascending (default) or descending:
+```sql
+SELECT * FROM employees ORDER BY salary ASC;  -- Ascending order  
+SELECT * FROM employees ORDER BY salary DESC; -- Descending order  
+```
+
+### 4️⃣ Using DISTINCT to Remove Duplicates
+```sql
+SELECT DISTINCT department FROM employees;
+```
+This returns unique department names.
+
+---
+
 ## 🎯 Hands-on Exercise
 ✅ **Task:**
-1. Create a database called `school_db`.
-2. Create a table `students` with columns: `student_id`, `name`, `age`, `class`, `marks`.
-3. Insert 3 records into the `students` table.
-4. Retrieve all records from the table.
-
+1. Retrieve all students from `students` whose marks are greater than 80.
+2. Sort students by age in descending order.
+3. Find all unique classes from the `students` table.
 
 ### 📝 Solution
 ```sql
-CREATE DATABASE school_db;
-USE school_db;
-
-CREATE TABLE students (
-    student_id INT PRIMARY KEY,
-    name VARCHAR(50),
-    age INT,
-    class VARCHAR(20),
-    marks DECIMAL(5,2)
-);
-
-INSERT INTO students (student_id, name, age, class, marks) VALUES
-(1, 'John Doe', 14, '8th Grade', 85.5),
-(2, 'Jane Smith', 13, '7th Grade', 90.0),
-(3, 'Sam Wilson', 15, '9th Grade', 78.5);
-
-SELECT * FROM students;
+SELECT * FROM students WHERE marks > 80;
+SELECT * FROM students ORDER BY age DESC;
+SELECT DISTINCT class FROM students;
 ```
